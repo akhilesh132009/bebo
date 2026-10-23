@@ -1,0 +1,884 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For My Bebo ❤️</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --pink: #ff72b6;
+    --purple: #a66bff;
+    --white: #fff0fa;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: white;
+    background: #090014;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+#space {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.ambient {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background:
+        radial-gradient(ellipse at 20% 20%,
+            rgba(166, 60, 255, .20), transparent 45%),
+        radial-gradient(ellipse at 80% 70%,
+            rgba(255, 65, 155, .18), transparent 45%);
+}
+
+.page {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    min-height: 100vh;
+    padding: 45px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content {
+    width: 100%;
+    max-width: 1050px;
+    text-align: center;
+}
+
+.eyebrow {
+    display: inline-block;
+    padding: 10px 19px;
+    border: 1px solid rgba(255, 153, 213, .5);
+    border-radius: 50px;
+    color: #ffc1e4;
+    background: rgba(255,255,255,.05);
+    font-size: 11px;
+    letter-spacing: 4px;
+    box-shadow: 0 0 25px rgba(255,80,180,.10);
+    animation: appear 1s both;
+}
+
+h1 {
+    margin-top: 24px;
+    font-size: clamp(42px, 8vw, 88px);
+    line-height: 1.12;
+    letter-spacing: -2px;
+    animation: appear 1.3s both;
+}
+
+h1 span {
+    display: block;
+    color: #ff9bd1;
+    text-shadow:
+        0 0 15px rgba(255,80,180,.9),
+        0 0 45px rgba(185,70,255,.5);
+    animation: glow 3s infinite alternate;
+}
+
+.intro {
+    max-width: 580px;
+    margin: 20px auto 0;
+    color: #e8d2f5;
+    line-height: 1.8;
+    font-size: 16px;
+}
+
+.scene {
+    height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+    position: relative;
+    margin: 5px auto;
+}
+
+.heart3d {
+    position: relative;
+    width: 135px;
+    height: 135px;
+    transform-style: preserve-3d;
+    animation: heartFloat 4s ease-in-out infinite;
+}
+
+.heart3d .heart {
+    position: absolute;
+    inset: 0;
+    font-size: 125px;
+    line-height: 135px;
+    filter: drop-shadow(0 0 20px #ff238e);
+    transform: translateZ(25px);
+    animation: pulse 1.4s infinite;
+}
+
+.heart3d .back {
+    transform: translateZ(-25px);
+    color: #bc35ff;
+    filter: drop-shadow(0 0 25px #bc35ff);
+}
+
+.ring {
+    position: absolute;
+    width: 225px;
+    height: 225px;
+    border: 1px solid rgba(255,140,220,.65);
+    border-radius: 50%;
+    transform: rotateX(68deg) rotateY(-15deg);
+    box-shadow: 0 0 18px rgba(255,90,200,.12);
+    animation: orbit 8s linear infinite;
+}
+
+.ring.two {
+    width: 265px;
+    height: 265px;
+    border-color: rgba(177,100,255,.6);
+    transform: rotateX(70deg) rotateY(50deg);
+    animation-direction: reverse;
+    animation-duration: 11s;
+}
+
+.ring.three {
+    width: 185px;
+    height: 185px;
+    border-color: rgba(255,255,255,.35);
+    transform: rotateY(65deg) rotateX(25deg);
+    animation-duration: 7s;
+}
+
+.photo-card {
+    width: min(310px, 82vw);
+    margin: -10px auto 35px;
+    padding: 11px;
+    position: relative;
+    border-radius: 24px;
+    background: linear-gradient(
+        135deg,
+        #ffb4df,
+        #a66bff,
+        #ff5ba8,
+        #ffe2f4
+    );
+    background-size: 300% 300%;
+    animation: borderGlow 5s ease infinite;
+    box-shadow:
+        0 0 30px rgba(255, 83, 183, .25),
+        0 20px 65px rgba(0, 0, 0, .4);
+    transform-style: preserve-3d;
+    transition: transform .15s ease-out;
+}
+
+.photo-inner {
+    overflow: hidden;
+    border-radius: 16px;
+    background: #260e32;
+    transform: translateZ(18px);
+}
+
+.photo-inner img {
+    display: block;
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+    object-position: center;
+    transition: transform .7s;
+}
+
+.photo-card:hover .photo-inner img {
+    transform: scale(1.045);
+}
+
+.photo-caption {
+    padding: 16px 5px 8px;
+    color: #fff;
+    font-size: 19px;
+    font-weight: bold;
+    text-shadow: 0 0 15px #ff5ba8;
+}
+
+.photo-caption small {
+    display: block;
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: normal;
+    letter-spacing: 2px;
+    color: #ffd6ec;
+}
+
+.message {
+    max-width: 650px;
+    margin: 0 auto 25px;
+    padding: 24px;
+    line-height: 1.9;
+    color: #f6e5ff;
+    border: 1px solid rgba(255,255,255,.14);
+    background: rgba(255,255,255,.055);
+    backdrop-filter: blur(12px);
+    border-radius: 22px;
+    box-shadow: 0 15px 50px rgba(0,0,0,.15);
+}
+
+.message strong {
+    color: #ff9bd1;
+}
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 13px;
+    margin-top: 25px;
+}
+
+button {
+    padding: 15px 23px;
+    border-radius: 50px;
+    border: 1px solid rgba(255,255,255,.2);
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: transform .25s, box-shadow .25s;
+}
+
+button:hover {
+    transform: translateY(-4px) scale(1.035);
+}
+
+.primary {
+    background: linear-gradient(135deg, #ff419b, #a54cff);
+    box-shadow: 0 8px 30px rgba(255,65,155,.25);
+}
+
+.secondary {
+    background: rgba(255,255,255,.08);
+}
+
+#surprise {
+    margin: 24px auto;
+    min-height: 32px;
+    font-size: 20px;
+    color: #ffb5dd;
+    text-shadow: 0 0 15px #ff4aa5;
+}
+
+.footer {
+    margin-top: 25px;
+    color: #b99bc9;
+    font-size: 11px;
+    letter-spacing: 3px;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(8,0,18,.86);
+    backdrop-filter: blur(15px);
+}
+
+.modal.open {
+    display: flex;
+    animation: appear .3s;
+}
+
+.letter {
+    width: min(480px, 100%);
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 32px 25px;
+    text-align: center;
+    border: 1px solid rgba(255,155,220,.6);
+    border-radius: 24px;
+    background: linear-gradient(145deg, #41164f, #190d2c);
+    box-shadow: 0 0 60px rgba(255,60,170,.2);
+    animation: letterIn .5s;
+}
+
+.letter .rose {
+    font-size: 55px;
+}
+
+.letter h2 {
+    margin: 15px 0 20px;
+    color: #ff9bd1;
+    font-size: 28px;
+}
+
+.letter p {
+    margin: 14px 0;
+    color: #f4def8;
+    line-height: 1.9;
+    font-size: 15px;
+}
+
+.signature {
+    margin: 25px 0;
+    color: #ff9bd1;
+    font-size: 19px;
+    line-height: 1.8;
+}
+
+.floating {
+    position: fixed;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+    z-index: 5;
+    animation: fly 2s ease-out forwards;
+}
+
+#musicNote {
+    display: block;
+    margin-top: 12px;
+    color: #c5a5db;
+    font-size: 12px;
+}
+
+@keyframes appear {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glow {
+    from { filter: brightness(.9); }
+    to { filter: brightness(1.3); }
+}
+
+@keyframes pulse {
+    0%,100% { transform: translateZ(25px) scale(1); }
+    50% { transform: translateZ(40px) scale(1.12); }
+}
+
+@keyframes heartFloat {
+    0%,100% { transform: translateY(0) rotateY(-12deg); }
+    50% { transform: translateY(-12px) rotateY(12deg); }
+}
+
+@keyframes orbit {
+    from { rotate: 0deg; }
+    to { rotate: 360deg; }
+}
+
+@keyframes borderGlow {
+    0%,100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes fly {
+    0% { opacity: 1; transform: translate(0,0) scale(.5) rotate(0); }
+    100% { opacity: 0; transform: translate(var(--dx),var(--dy)) scale(1.6) rotate(35deg); }
+}
+
+@keyframes letterIn {
+    from { opacity: 0; transform: scale(.8) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@media (max-width: 600px) {
+    .page { padding: 35px 16px; }
+    .scene { height: 270px; }
+    .photo-inner img { height: 340px; }
+    .message { padding: 20px; font-size: 14px; }
+    .ring.two { width: 230px; height: 230px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+    }
+}
+</style>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js"
+  }
+}
+</script>
+</head>
+
+<body>
+
+<canvas id="space" aria-hidden="true"></canvas>
+<div class="ambient"></div>
+
+<main class="page">
+<div class="content">
+
+    <div class="eyebrow">✦ A LITTLE UNIVERSE FOR YOU ✦</div>
+
+    <h1>
+        My World Is
+        <span>Anjali ❤️</span>
+    </h1>
+
+    <p class="intro">
+        Somewhere among billions of stars,
+        one beautiful soul makes my world brighter.
+        <br>
+        That person is you, my Bebo. 🌹
+    </p>
+
+    <div class="scene" aria-hidden="true">
+        <div class="ring"></div>
+        <div class="ring two"></div>
+        <div class="ring three"></div>
+
+        <div class="heart3d">
+            <div class="heart back">♥</div>
+            <div class="heart">❤️</div>
+        </div>
+    </div>
+
+    <div class="photo-card" id="photoCard">
+        <div class="photo-inner">
+            <img src="anjali.jpg"
+                 alt="A beautiful photo of Anjali"
+                 onerror="this.alt='Please place your photo in the project folder as anjali.jpg'; this.style.display='none';">
+        </div>
+
+        <div class="photo-caption">
+            My Beautiful Bebo 🌸
+            <small>YOU MAKE MY WORLD BEAUTIFUL</small>
+        </div>
+    </div>
+
+    <div class="message">
+        <strong>Dear Anjali, my Bebo 💖</strong>
+        <br><br>
+        If all the stars in the universe could become words,
+        they still wouldn't be enough to describe how special
+        you are to me.
+        <br><br>
+        This little universe is made just for you,
+        with love in every heartbeat and a little magic
+        in every moment. ✨
+    </div>
+
+    <div class="buttons">
+        <button class="primary" id="openLetter">
+            💌 Open Your Love Letter
+        </button>
+
+        <button class="secondary" id="celebrate">
+            💖 Make a Wish
+        </button>
+
+        <button class="secondary" id="musicButton">
+            🎵 Play My Surprise
+        </button>
+    </div>
+
+    <div id="surprise" aria-live="polite"></div>
+    <span id="musicNote">Tap Play My Surprise to hear a little melody.</span>
+
+    <div class="footer">
+        CREATED WITH LOVE • JUST FOR BEBO ❤️
+    </div>
+
+</div>
+</main>
+
+<!-- LETTER -->
+
+<div class="modal" id="modal"
+     role="dialog" aria-modal="true"
+     aria-labelledby="letterTitle">
+
+    <div class="letter">
+        <div class="rose">🌹💗🌹</div>
+
+        <h2 id="letterTitle">My Dearest Bebo</h2>
+
+        <p>My sweet Anjali, ❤️</p>
+
+        <p>
+            I made this little world because I wanted to give
+            you something special, something that could make
+            you smile whenever you see it.
+        </p>
+
+        <p>
+            You are not just a name in my story.
+            You are one of the most beautiful parts of it.
+            Your smile brings warmth to my days, and your
+            happiness means so much to me.
+        </p>
+
+        <p>
+            I may not always find the perfect words,
+            but I hope you always remember that you deserve
+            kindness, happiness, respect, and all the beautiful
+            things life has to offer.
+        </p>
+
+        <p>
+            If I could give you one gift today, it would be
+            a mirror that shows you how wonderful you are. ✨
+        </p>
+
+        <div class="signature">
+            Always sending you love,<br>
+            Your Akhilesh ❤️
+        </div>
+
+        <button class="primary" id="closeLetter">
+            Close with a Hug 🤗
+        </button>
+    </div>
+</div>
+
+<script type="module">
+import * as THREE from "three";
+
+const canvas = document.getElementById("space");
+
+let scene, camera, renderer, stars, hearts;
+let animationId;
+let mouseX = 0;
+let mouseY = 0;
+let frame = 0;
+
+try {
+    scene = new THREE.Scene();
+
+    camera = new THREE.PerspectiveCamera(
+        65,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+    );
+
+    camera.position.z = 35;
+
+    renderer = new THREE.WebGLRenderer({
+        canvas,
+        alpha: true,
+        antialias: true
+    });
+
+    renderer.setPixelRatio(
+        Math.min(window.devicePixelRatio || 1, 2)
+    );
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    // Hundreds of tiny stars.
+    const starCount = 1600;
+    const starPositions = new Float32Array(starCount * 3);
+
+    for (let i = 0; i < starCount; i++) {
+        starPositions[i * 3] = (Math.random() - 0.5) * 100;
+        starPositions[i * 3 + 1] = (Math.random() - 0.5) * 100;
+        starPositions[i * 3 + 2] = (Math.random() - 0.5) * 100;
+    }
+
+    const starGeometry = new THREE.BufferGeometry();
+
+    starGeometry.setAttribute(
+        "position",
+        new THREE.BufferAttribute(starPositions, 3)
+    );
+
+    const starMaterial = new THREE.PointsMaterial({
+        color: 0xffb8e6,
+        size: 0.12,
+        transparent: true,
+        opacity: 0.9,
+        sizeAttenuation: true
+    });
+
+    stars = new THREE.Points(starGeometry, starMaterial);
+    scene.add(stars);
+
+    // Glowing pink and purple 3D particles.
+    hearts = [];
+
+    const particleGeometry = new THREE.IcosahedronGeometry(0.17, 1);
+
+    for (let i = 0; i < 55; i++) {
+        const material = new THREE.MeshBasicMaterial({
+            color: i % 2 ? 0xff72b6 : 0xb77aff,
+            transparent: true,
+            opacity: 0.85,
+            wireframe: i % 3 === 0
+        });
+
+        const particle = new THREE.Mesh(particleGeometry, material);
+
+        particle.position.set(
+            (Math.random() - 0.5) * 55,
+            (Math.random() - 0.5) * 45,
+            (Math.random() - 0.5) * 25
+        );
+
+        particle.userData.speed = 0.004 + Math.random() * 0.015;
+        particle.userData.offset = Math.random() * Math.PI * 2;
+
+        scene.add(particle);
+        hearts.push(particle);
+    }
+
+    scene.add(new THREE.AmbientLight(0xffffff, 1));
+
+    function animate() {
+        animationId = requestAnimationFrame(animate);
+        frame++;
+
+        stars.rotation.y += 0.00035;
+        stars.rotation.x += 0.00012;
+
+        hearts.forEach((particle) => {
+            particle.rotation.x += particle.userData.speed;
+            particle.rotation.y += particle.userData.speed * 1.3;
+
+            particle.position.y +=
+                Math.sin(frame * 0.012 + particle.userData.offset) * 0.006;
+
+            particle.position.x +=
+                Math.cos(frame * 0.008 + particle.userData.offset) * 0.004;
+        });
+
+        camera.position.x +=
+            (mouseX * 2 - camera.position.x) * 0.015;
+
+        camera.position.y +=
+            (-mouseY * 2 - camera.position.y) * 0.015;
+
+        camera.lookAt(0, 0, 0);
+
+        renderer.render(scene, camera);
+    }
+
+    animate();
+
+    window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    window.addEventListener("pointermove", (event) => {
+        mouseX = (event.clientX / window.innerWidth - 0.5) * 2;
+        mouseY = (event.clientY / window.innerHeight - 0.5) * 2;
+    });
+
+} catch (error) {
+    console.error("3D animation could not start:", error);
+    document.getElementById("musicNote").textContent =
+        "3D graphics need a browser with WebGL support.";
+}
+
+// Photo follows the mouse for a 3D card effect.
+const photoCard = document.getElementById("photoCard");
+
+photoCard.addEventListener("pointermove", (event) => {
+    const rect = photoCard.getBoundingClientRect();
+
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+
+    photoCard.style.transform =
+        `perspective(800px) rotateY(${(x - 0.5) * 13}deg)
+         rotateX(${(0.5 - y) * 13}deg)`;
+});
+
+photoCard.addEventListener("pointerleave", () => {
+    photoCard.style.transform =
+        "perspective(800px) rotateY(0deg) rotateX(0deg)";
+});
+
+// Floating hearts and rose petals.
+const symbols = ["❤️", "💖", "💕", "🌹", "✨", "💗"];
+
+function burst(count = 20) {
+    for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+            const el = document.createElement("span");
+
+            el.className = "floating";
+            el.textContent =
+                symbols[Math.floor(Math.random() * symbols.length)];
+
+            el.style.left = (15 + Math.random() * 70) + "vw";
+            el.style.top = (35 + Math.random() * 35) + "vh";
+
+            el.style.setProperty(
+                "--dx",
+                ((Math.random() - 0.5) * 250) + "px"
+            );
+
+            el.style.setProperty(
+                "--dy",
+                (-100 - Math.random() * 260) + "px"
+            );
+
+            el.style.fontSize = (18 + Math.random() * 23) + "px";
+
+            document.body.appendChild(el);
+
+            setTimeout(() => el.remove(), 2200);
+        }, i * 45);
+    }
+}
+
+// Love letter interactions.
+const modal = document.getElementById("modal");
+const openLetter = document.getElementById("openLetter");
+const closeLetter = document.getElementById("closeLetter");
+
+openLetter.addEventListener("click", () => {
+    modal.classList.add("open");
+    burst(25);
+    closeLetter.focus();
+});
+
+function hideLetter() {
+    modal.classList.remove("open");
+    openLetter.focus();
+}
+
+closeLetter.addEventListener("click", hideLetter);
+
+modal.addEventListener("click", (event) => {
+    if (event.target === modal) hideLetter();
+});
+
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") hideLetter();
+});
+
+// Wish button.
+const messages = [
+    "Bebo, may your smile always shine! 💖",
+    "You deserve all the happiness in the universe. ✨",
+    "Sending one thousand virtual hugs to Anjali! 🤗",
+    "Some stars shine in the sky. You shine in my world. 🌹",
+    "A little universe, made with love, just for you. ❤️"
+];
+
+let messageIndex = 0;
+
+document.getElementById("celebrate").addEventListener("click", () => {
+    document.getElementById("surprise").textContent =
+        messages[messageIndex];
+
+    messageIndex = (messageIndex + 1) % messages.length;
+
+    burst(30);
+});
+
+// A small original melody using the browser's audio system.
+// No music file or external audio library is required.
+let audioContext = null;
+let musicPlaying = false;
+let musicTimer = null;
+let noteIndex = 0;
+
+const melody = [
+    523.25, 659.25, 783.99, 659.25,
+    587.33, 698.46, 880.00, 783.99,
+    659.25, 783.99, 987.77, 880.00
+];
+
+function playNote(frequency, startTime) {
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+
+    oscillator.type = "sine";
+    oscillator.frequency.value = frequency;
+
+    gain.gain.setValueAtTime(0.0001, startTime);
+    gain.gain.exponentialRampToValueAtTime(0.07, startTime + 0.06);
+    gain.gain.exponentialRampToValueAtTime(0.0001, startTime + 0.55);
+
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+
+    oscillator.start(startTime);
+    oscillator.stop(startTime + 0.6);
+}
+
+function playMelody() {
+    if (!musicPlaying) return;
+
+    playNote(
+        melody[noteIndex % melody.length],
+        audioContext.currentTime
+    );
+
+    noteIndex++;
+    musicTimer = setTimeout(playMelody, 430);
+}
+
+document.getElementById("musicButton").addEventListener("click", async () => {
+    const button = document.getElementById("musicButton");
+
+    if (musicPlaying) {
+        musicPlaying = false;
+        clearTimeout(musicTimer);
+
+        if (audioContext) await audioContext.suspend();
+
+        button.textContent = "🎵 Play My Surprise";
+        return;
+    }
+
+    try {
+        if (!audioContext) {
+            audioContext = new (
+                window.AudioContext || window.webkitAudioContext
+            )();
+        }
+
+        await audioContext.resume();
+
+        musicPlaying = true;
+        button.textContent = "⏸ Pause Music";
+
+        document.getElementById("musicNote").textContent =
+            "A little melody, made with love. 💗";
+
+        playMelody();
+
+    } catch (error) {
+        document.getElementById("musicNote").textContent =
+            "Audio is unavailable in this browser.";
+    }
+});
+
+// Initial burst for the first impression.
+setTimeout(() => burst(18), 1000);
+</script>
+
+</body>
+</html>
+```
